@@ -3,27 +3,47 @@ class CalendarioInterativo extends HTMLElement {
         super();
 
         // Shadow DOM
-        const shadow = this.attachShadow({ mode: 'open' });
+        const shadow = this.attachShadow({
+            mode: 'open'
+        });
 
         // HTML do componente
         const template = document.createElement('template');
         template.innerHTML = `
             <style>
                 /* CSS do componente */
-                body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f4f4f4;
-}
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f4f4f4;
+    }
 
 .container {
     display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center;    /* Centraliza verticalmente */
+    height: 100vh;          /* Ocupa toda a altura da viewport */
+    background-color: #f4f4f4;
+    /* Mantém o gap entre os elementos */
     gap: 20px;
+    flex-wrap: wrap; /* Permite que os elementos quebrem para a próxima linha */
+}
+
+.container.horizontal .detalhes {
+    order: 1;
+    width: auto; /* Lado direito */
+}
+
+.container.vertical .detalhes {
+    order: 2;
+    width: 100%;  /*Abaixo do calendário */
+    /*width: 300px;  Ajuste o tamanho de acordo com o que você deseja */
+    margin-top: 20px; /* Cria uma distância razoável do calendário */
 }
 
 .calendario {
@@ -75,11 +95,6 @@ class CalendarioInterativo extends HTMLElement {
     background-color: #f9f9f9;
     cursor: pointer;
 }
-/* .dias div:hover{
-    background-color: #ccc;
-    color: #333;
-    font-size: 24px;
-} */
 .marcado:hover{
     background-color: #007bff;
     color: #ccc;
@@ -135,6 +150,7 @@ class CalendarioInterativo extends HTMLElement {
             </div>
         </div>
         <div class="detalhes">
+        <button id="toggle-position">Alternar Posição</button>
             <h3>Dias Marcados</h3>
             <ul id="lista-detalhes">
                 <!-- Detalhes dos dias marcados -->
@@ -142,6 +158,7 @@ class CalendarioInterativo extends HTMLElement {
         </div>
     </div>
         `;
+
         shadow.appendChild(template.content.cloneNode(true));
 
         // Seletores do Shadow DOM
@@ -150,12 +167,28 @@ class CalendarioInterativo extends HTMLElement {
         this.mesAnoElement = shadow.querySelector('#mes-ano');
         this.btnPrevMes = shadow.querySelector('#prev-mes');
         this.btnNextMes = shadow.querySelector('#next-mes');
+        this.togglePositionBtn = shadow.querySelector('#toggle-position');
+        this.calendarioContainer = shadow.querySelector('.container');
 
         this.currentDate = new Date();
-        this.diasMarcados = [
-            { dia: 3, semana: 'Sexta-feira', mes: 0, ano: 2025 },
-            { dia: 19, semana: 'Domingo', mes: 0, ano: 2025 },
-            { dia: 31, semana: 'Sexta-feira', mes: 0, ano: 2025 },
+        this.diasMarcados = [{
+                dia: 3,
+                semana: 'Sexta-feira',
+                mes: 0,
+                ano: 2025
+            },
+            {
+                dia: 19,
+                semana: 'Domingo',
+                mes: 0,
+                ano: 2025
+            },
+            {
+                dia: 31,
+                semana: 'Sexta-feira',
+                mes: 0,
+                ano: 2025
+            },
         ];
     }
 
@@ -163,11 +196,13 @@ class CalendarioInterativo extends HTMLElement {
         this.gerarCalendario(this.currentDate);
         this.btnPrevMes.addEventListener('click', this.prevMes.bind(this));
         this.btnNextMes.addEventListener('click', this.nextMes.bind(this));
+        this.togglePositionBtn.addEventListener('click', this.alternarPosicaoDetalhes.bind(this));
     }
 
     disconnectedCallback() {
         this.btnPrevMes.removeEventListener('click', this.prevMes);
         this.btnNextMes.removeEventListener('click', this.nextMes);
+        this.togglePositionBtn.removeEventListener('click', this.alternarPosicaoDetalhes);
     }
 
     limparDetalhes() {
@@ -184,6 +219,17 @@ class CalendarioInterativo extends HTMLElement {
             ).toLocaleString('pt-BR', { month: 'long' })}`;
             this.listaDetalhes.appendChild(li);
         });
+    }
+
+    // Função para alternar a posição da div de detalhes
+    alternarPosicaoDetalhes() {
+        if (this.calendarioContainer.classList.contains('horizontal')) {
+            this.calendarioContainer.classList.remove('horizontal');
+            this.calendarioContainer.classList.add('vertical');
+        } else {
+            this.calendarioContainer.classList.remove('vertical');
+            this.calendarioContainer.classList.add('horizontal');
+        }
     }
 
     gerarCalendario(data) {
