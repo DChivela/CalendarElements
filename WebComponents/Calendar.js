@@ -34,32 +34,22 @@ class CalendarioInterativo extends HTMLElement {
     flex-wrap: wrap; /* Permite que os elementos quebrem para a próxima linha */
 }
 
-.container.horizontal .detalhes {
-    order: 1;
-    width: auto; /* Lado direito */
-}
+                .container.horizontal {
+                    flex-direction: row;
+                }
 
-.container.vertical .detalhes {
-    order: 2;
-    width: 100%;  /*Abaixo do calendário */
-    /*width: 300px;  Ajuste o tamanho de acordo com o que você deseja */
-    margin-top: 20px; /* Cria uma distância razoável do calendário */
-    flex-direction: column; /* Para alternar para vertical */
-    align-items: center; /* Centraliza os itens horizontalmente */
-}
-//     .container.vertical {
-//     flex-direction: column; /* Para alternar para vertical */
-//     align-items: center; /* Centraliza os itens horizontalmente */
-// }
+                .container.vertical {
+                    flex-direction: column;
+                }
 
-.calendario {
-    text-align: center;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+                .calendario {
+                    text-align: center;
+                    background-color: #fff;
+                    border: 1px solid #ccc;
+                    border-radius: 8px;
+                    padding: 20px;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                }
 
 .navegacao{
     display: flex;
@@ -101,57 +91,34 @@ class CalendarioInterativo extends HTMLElement {
     background-color: #f9f9f9;
     cursor: pointer;
 }
-.marcado:hover{
-    background-color: #007bff;
-    color: #ccc;
-    font-size: 24px;
-}
-
-.marcado {
-    border: 2px solid #007bff;
-    font-weight: bold;
-    color: #007bff;
-    border: 1px solid #333;
-    border-radius: 4px;
-    background-color: #007bff;
-}
-
-.detalhes {
-    width: 300px; /* Define uma largura fixa para evitar que o elemento se expanda */
-    margin-top: 10px; /* Espaçamento quando posicionado abaixo */
-    text-align: left;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
-    background-color: #fff;
-}
-    .detalhes {
-    transition: width 0.3s ease, margin-top 0.3s ease; /* Adiciona uma transição suave */
-}
-//     .detalhes.aberto {
-//     width: auto; /* Altere conforme necessário para adaptação */
-// }
-
-
-.detalhes ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.detalhes li {
-    margin-bottom: 10px;
-}
-                    .detalhes.aberto {
-                    width: auto;
+                    .dias div:hover {
+                    background-color: #007bff;
+                    color: #fff;
+                }
+                    .dias .marcado {
+                    border: 2px solid #007bff;
+                    font-weight: bold;
+                    background-color: #007bff;
+                    color: #fff;
                 }
 
-                .detalhes.below {
-                    width: auto;
+                                .detalhes {
+                    width: 300px;
+                    margin-top: 10px;
+                    text-align: left;
+                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+                    border-radius: 5px;
+                    background-color: #fff;
                 }
 
-                .match-width {
-                    width: calc(100% - 40px); /* Ajusta a largura com base no calendário */
-                    // max-width: 300px;
+                .detalhes ul {
+                    list-style: none;
+                    padding: 0;
+                    margin: 0;
+                }
+
+                .detalhes li {
+                    margin-bottom: 10px;
                 }
 
                 #toggle-position {
