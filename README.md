@@ -1,11 +1,11 @@
 # Calendar
 1. O Calendar é um projecto WEB que apresenta um calendário interativo.
-Nele é apresentado um dia com evento assinalado com um pontinho vermelho, os detalhes são exibidos com um clique no dia com evento, após o clique é realizada a exibição dos eventos deste dia com os detalhes dos mesmos.
+Nele é apresentado um dia com evento assinalado em azul, os detalhes são exibidos com um clique no dia com evento, após o clique é realizada a exibição dos eventos deste dia com os detalhes dos mesmos num elemento ao lado.
 
 # 2. Estrutura do Projeto
 Criamos dois Web Components em um único ficheiro:
  - Calendário - Exibe o calendário e lida com eventos.
- - Modal - Exibe os detalhes dos eventos do dia.
+ - Outro elemento (div) - Exibe os detalhes dos dias ao lado do calendário com a opção de mudunça da posição deste mesmo elemento para baixo.
 
 # Sobre os components:
 1. Usou-se o Custom Elements para criar novos elementos HTML.
@@ -13,7 +13,7 @@ Criamos dois Web Components em um único ficheiro:
 3. Usou-se o HTML Templates para definir a estrutura do componente.
 
 O calendar-component renderiza o calendário
-Quando um dia com eventos é clicado, um modal-component é aberto com os detalhes.
+Quando um dia com eventos é clicado, um component é activado com os detalhes, especificamente *o dia da semana, o dia do mês e o respectivo mês*.
 
 # Outros
 A palavra-chave defer em um script HTML é usada para informar ao navegador que ele deve carregar e executar o script apenas depois que o documento HTML completo foi analisado (ou seja, depois que o DOM está pronto).

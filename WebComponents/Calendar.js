@@ -44,7 +44,13 @@ class CalendarioInterativo extends HTMLElement {
     width: 100%;  /*Abaixo do calendário */
     /*width: 300px;  Ajuste o tamanho de acordo com o que você deseja */
     margin-top: 20px; /* Cria uma distância razoável do calendário */
+    flex-direction: column; /* Para alternar para vertical */
+    align-items: center; /* Centraliza os itens horizontalmente */
 }
+//     .container.vertical {
+//     flex-direction: column; /* Para alternar para vertical */
+//     align-items: center; /* Centraliza os itens horizontalmente */
+// }
 
 .calendario {
     text-align: center;
@@ -111,22 +117,57 @@ class CalendarioInterativo extends HTMLElement {
 }
 
 .detalhes {
+    width: 300px; /* Define uma largura fixa para evitar que o elemento se expanda */
+    margin-top: 10px; /* Espaçamento quando posicionado abaixo */
+    text-align: left;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
     background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 200px;
 }
+    .detalhes {
+    transition: width 0.3s ease, margin-top 0.3s ease; /* Adiciona uma transição suave */
+}
+//     .detalhes.aberto {
+//     width: auto; /* Altere conforme necessário para adaptação */
+// }
+
 
 .detalhes ul {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
 .detalhes li {
     margin-bottom: 10px;
 }
+                    .detalhes.aberto {
+                    width: auto;
+                }
+
+                .detalhes.below {
+                    width: auto;
+                }
+
+                .match-width {
+                    width: calc(100% - 40px); /* Ajusta a largura com base no calendário */
+                    // max-width: 300px;
+                }
+
+                #toggle-position {
+                    margin-top: 10px;
+                    background-color: #007bff;
+                    color: white;
+                    padding: 10px;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    transition: background-color 0.3s;
+                }
+
+                #toggle-position:hover {
+                    background-color: #0056b3;
+                }
 
             </style>
     <div class="container">
@@ -169,6 +210,7 @@ class CalendarioInterativo extends HTMLElement {
         this.btnNextMes = shadow.querySelector('#next-mes');
         this.togglePositionBtn = shadow.querySelector('#toggle-position');
         this.calendarioContainer = shadow.querySelector('.container');
+        this.detalhesDiv = shadow.querySelector('.detalhes');
 
         this.currentDate = new Date();
         this.diasMarcados = [{
@@ -226,9 +268,11 @@ class CalendarioInterativo extends HTMLElement {
         if (this.calendarioContainer.classList.contains('horizontal')) {
             this.calendarioContainer.classList.remove('horizontal');
             this.calendarioContainer.classList.add('vertical');
+            this.detalhesDiv.classList.add('match-width');
         } else {
             this.calendarioContainer.classList.remove('vertical');
             this.calendarioContainer.classList.add('horizontal');
+            this.detalhesDiv.classList.remove('match-width');
         }
     }
 
