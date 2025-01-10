@@ -102,13 +102,14 @@ class CalendarioInterativo extends HTMLElement {
                     color: #fff;
                 }
 
-                                .detalhes {
+                .detalhes {
                     width: 300px;
                     margin-top: 10px;
                     text-align: left;
                     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
                     border-radius: 5px;
                     background-color: #fff;
+                    transition: width 0.3s ease, margin 0.3s ease;
                 }
 
                 .detalhes ul {
